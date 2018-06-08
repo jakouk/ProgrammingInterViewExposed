@@ -77,3 +77,54 @@ linkList.delete()
 print(linkList.count)
 
 
+// StackNode
+class stackNode<T> {
+  var next: stackNode<T>?
+  var data: T
+  
+  init(data: T) {
+    next = nil
+    self.data = data
+  }
+}
+
+class Stack<T> {
+  var head: stackNode<T>?
+  
+  func push(value: T) {
+    let newNode = stackNode(data: value)
+    if head == nil {
+      head = newNode
+    } else {
+      newNode.next = head
+      head = newNode
+    }
+  }
+  
+  func pop() -> T? {
+    let oldNode = head
+    if head != nil {
+      head = head?.next
+    }
+    
+    return oldNode?.data
+  }
+}
+
+let stack = Stack<Int>()
+stack.push(value: 1)
+stack.push(value: 2)
+stack.push(value: 3)
+stack.push(value: 4)
+
+print(stack.pop())
+print(stack.pop())
+print(stack.pop())
+print(stack.pop())
+print(stack.pop())
+print(stack.pop())
+
+
+
+
+
