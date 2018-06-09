@@ -63,6 +63,42 @@ class LinkedList<T> {
       self.count -= 1
     }
   }
+  
+//  // findVallue
+//  func findValue(value: T) -> T? {
+//    var node = head
+//    var findValue: T
+//    while ( node != nil ) {
+//      if node?.value == value {
+//        findValue = (node?.value)!
+//      } else {
+//        node = node?.next
+//      }
+//    }
+//    return findValue
+//  }
+  
+  func findIndexValue(index: Int) -> T? {
+    var node = head
+    var stackIndex = 1
+    var nodeValue: T?
+    
+    if node?.value == nil {
+      return nil
+    }
+    
+    while ( node != nil ) {
+      if stackIndex == index {
+        nodeValue = (node?.value)!
+        break
+      } else {
+        stackIndex += 1
+        node = node?.next
+      }
+    }
+    
+    return nodeValue
+  }
 }
 
 let linkList = LinkedList<Int>()
@@ -72,6 +108,9 @@ linkList.Insert(value: 3)
 
 print(linkList.head?.value)
 print(linkList.count)
+print("index Value = \(linkList.findIndexValue(index: 1))")
+print("index Value = \(linkList.findIndexValue(index: 2))")
+print("index Value = \(linkList.findIndexValue(index: 3))")
 
 linkList.delete()
 print(linkList.count)
@@ -106,7 +145,6 @@ class Stack<T> {
     if head != nil {
       head = head?.next
     }
-    
     return oldNode?.data
   }
 }
@@ -123,6 +161,7 @@ print(stack.pop())
 print(stack.pop())
 print(stack.pop())
 print(stack.pop())
+
 
 
 
