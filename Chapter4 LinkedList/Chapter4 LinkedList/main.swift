@@ -164,6 +164,55 @@ print(stack.pop())
 
 
 
+// flatten
+class flattenNode<T> {
+  var next: flattenNode<T>?
+  var prev: flattenNode<T>?
+  var child: flattenNode<T>?
+  var data: T
+  
+  init(data: T) {
+    self.data = data
+  }
+}
+
+// flattenList
+class flattenList<T> {
+  var head: flattenNode<T>?
+  var tail: flattenNode<T>?
+  
+  func append(data: T) {
+    var node = head
+    while node != nil {
+      if node?.child != nil {
+        tail?.next = node?.child
+        node?.prev = tail
+        tail = node
+      }
+      node = node?.next
+      if node?.next == nil {
+        break
+      }
+    }
+  }
+}
+
+// circle, not circle Determine
+func determineTermination(head: Node<Int>) -> Bool {
+  var slow = head
+  var fast = head.next
+  
+  while true {
+    if fast == nil || fast?.next == nil {
+      return false
+    } else if fast?.value == slow.value || fast?.next?.value == slow.value {
+      return true
+    } else {
+      slow = slow.next!
+      fast = fast?.next?.next
+    }
+  }
+}
 
 
 
