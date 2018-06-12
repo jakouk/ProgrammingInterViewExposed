@@ -18,10 +18,57 @@ class TreeNode<T> {
 }
 
 class Tree<T> {
-  var top: TreeNode<T>
+  var root: TreeNode<T>
   
   init(node: TreeNode<T>) {
-    self.top = node
+    self.root = node
   }
 }
 
+
+class BinaryNode {
+  var left: BinaryNode?
+  var right: BinaryNode?
+  var parent: BinaryNode?
+  var value: Int
+  
+  init(value: Int) {
+    self.value = value
+  }
+}
+
+class BinaryTree {
+  var root: BinaryNode?
+
+  func append(value: Int) {
+    if root == nil {
+      root = BinaryNode(value: value)
+    } else {
+      addNode(value: value, parentNode: root!)
+    }
+  }
+  
+  func addNode(value: Int, parentNode: BinaryNode) {
+    
+    if parentNode.value > value {
+      if let _ = parentNode.left {
+        addNode(value: value, parentNode: parentNode.left!)
+      } else {
+        let newNode = BinaryNode(value: value)
+        newNode.parent = parentNode
+        parentNode.left = newNode
+      }
+      
+    } else {
+      
+      if let _ = parentNode.right {
+        addNode(value: value, parentNode: parentNode.right!)
+      } else {
+        let newNode = BinaryNode(value: value)
+        newNode.parent = parentNode
+        parentNode.right = newNode
+      }
+      
+    }
+  }
+}
