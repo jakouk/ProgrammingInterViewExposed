@@ -71,4 +71,23 @@ class BinaryTree {
       
     }
   }
+  
+  func findNode(value: Int, node: BinaryNode) -> BinaryNode? {
+    var childNode = node
+    
+    while root != nil {
+      let currval = node.value
+      if currval == value {
+        break
+      }
+      
+      if currval < value {
+        childNode = childNode.right!
+      } else if currval > value {
+        childNode = childNode.left!
+      }
+    }
+    
+    return childNode
+  }
 }
