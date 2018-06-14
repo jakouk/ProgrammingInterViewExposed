@@ -90,4 +90,14 @@ class BinaryTree {
     
     return childNode
   }
+  
+  func preOrderTraversal(node: BinaryNode?) {
+    if node == nil {
+      return
+    }
+    print(node!.value)
+    preOrderTraversal(node: node!.left!)
+    preOrderTraversal(node: node!.right!)
+  }
+
 }
