@@ -99,5 +99,86 @@ class BinaryTree {
     preOrderTraversal(node: node!.left!)
     preOrderTraversal(node: node!.right!)
   }
+  
+  func preOrderTraversalStack(node: BinaryNode) {
+    let stack = Stack<BinaryNode>()
+    let stackNode = StackNode(value: node)
+    stack.push(node: stackNode)
+    
+    while stack.stackSize > 0 {
+      let curNode = stack.pop()
+      var node = curNode?.value.right
+      
+      print(node?.value)
+      
+      if let node = node {
+        let rightNode = StackNode(value: node)
+        stack.push(node: rightNode)
+      }
+      
+      node = curNode?.value.left
+      
+      if let node = node {
+        let leftNode = StackNode(value: node)
+        stack.push(node: leftNode)
+      }
+    }
+  }
+  
+}
 
+class StackNode<T> {
+  var value: T
+  var next: StackNode?
+  
+  init(value: T) {
+    self.value = value
+  }
+}
+
+// Stack
+class Stack<T> {
+  var head: StackNode<T>?
+  var stackSize: Int
+  
+  init() {
+    self.stackSize = 0
+    self.head = nil
+  }
+  
+  func push(node: StackNode<T>) {
+    var newNode = head
+    if head == nil {
+      head = node
+      self.stackSize += 1
+    } else {
+      
+      while true {
+        if newNode?.next == nil {
+          newNode?.next = node
+          self.stackSize += 1
+          break
+        }
+        newNode = newNode?.next
+      }
+    }
+    
+  }
+  
+  func pop() -> StackNode<T>? {
+    var newNode = head
+    
+    if head == nil {
+      return nil
+    } else {
+      while true {
+        if newNode?.next == nil {
+          self.stackSize -= 1
+          break
+        }
+        newNode = newNode?.next
+      }
+    }
+    return newNode
+  }
 }
