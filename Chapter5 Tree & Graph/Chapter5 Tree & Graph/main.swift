@@ -91,6 +91,14 @@ class BinaryTree {
     return childNode
   }
   
+  func treeHeight(node: BinaryNode?) -> Int {
+    if node == nil {
+      return 0
+    }
+    
+    return 1 + max(treeHeight(node:node?.left), treeHeight(node: node?.right))
+  }
+  
   func preOrderTraversal(node: BinaryNode?) {
     if node == nil {
       return
