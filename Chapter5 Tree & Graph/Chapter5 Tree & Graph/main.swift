@@ -133,6 +133,22 @@ class BinaryTree {
     }
   }
   
+  func findLowestCommonAncestor(node: BinaryNode?, value1: Int, value2: Int) {
+    var newNode = node
+    
+    while node != nil {
+      guard let value = node?.value else { return }
+      
+      if value > value1 && value2 > value2 {
+        newNode = newNode?.left
+      } else if value < value1 && value2 < value2 {
+        newNode = newNode?.right
+      } else {
+        print("value = \(newNode?.value)")
+      }
+    }
+  }
+  
 }
 
 class StackNode<T> {
