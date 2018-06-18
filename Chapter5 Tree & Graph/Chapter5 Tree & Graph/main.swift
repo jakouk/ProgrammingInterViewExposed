@@ -149,6 +149,10 @@ class BinaryTree {
     }
   }
   
+  func heapifyBinaryTree(node: BinaryNode) {
+    
+  }
+  
 }
 
 class StackNode<T> {
