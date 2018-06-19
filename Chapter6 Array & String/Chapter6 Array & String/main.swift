@@ -8,18 +8,26 @@
 
 import Foundation
 
-func firstNonRepeated(str: String) {
-  var charHash = [String: Int]()
-  var i: Int
-  var length: Int
-  var character: Character
+func firstNonRepeated(str: String) -> Character? {
+  var charHash = [Character: Int]()
+  let stringArray = Array(str)
   
-  length = str.count
-  
-  for i in 0..<length {
-
+  for char in stringArray {
+    if charHash[char] == nil {
+      charHash[char] = 1
+    } else {
+      charHash[char] = charHash[char]! + 1
+    }
   }
   
+  for char in stringArray {
+    if charHash[char] == 1 {
+      return char
+    }
+  }
   
+  return nil
 }
+
+print("firstNonRepeated = \(firstNonRepeated(str: "HelloH")!)")
 
