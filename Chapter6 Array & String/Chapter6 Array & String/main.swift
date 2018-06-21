@@ -8,6 +8,7 @@
 
 import Foundation
 
+// 중복되지 않는 가장 첫번째 문자
 func firstNonRepeated(str: String) -> Character? {
   var charHash = [Character: Int]()
   let stringArray = Array(str)
@@ -35,6 +36,7 @@ func firstNonRepeated(str: String) -> Character? {
 
 print("firstNonRepeated = \(firstNonRepeated(str: "HelloH")!)")
 
+// 원하는 문자 전부 삭제 ( 나머지는 전부 출력, 없어진 문자는 앞으로 땡겨짐 )
 func removeChars(str: String, remove: String) -> String {
   var strArray = Array(str)
   var removeArray = Array(remove)
@@ -60,3 +62,28 @@ func removeChars(str: String, remove: String) -> String {
 }
 
 print("removerChars = \(removeChars(str: "Battle of the Vowels: Hawaii vs Grozny", remove: "aeiou"))")
+
+// 회문 인지 확인하는 것.
+func palindrome(str: String) {
+  var originArray = Array(str)
+  var reverseArray = [Character]()
+  
+  for i in 0..<originArray.count {
+    reverseArray.append(originArray[originArray.count - 1 - i])
+  }
+  
+  let reverseString = String(reverseArray)
+  
+  if str == reverseString {
+    print("Yes palindrome")
+  } else {
+    print("No palindrome")
+  }
+  
+  print("palindrome = \(reverseString)")
+}
+
+palindrome(str: "toot")
+
+
+
