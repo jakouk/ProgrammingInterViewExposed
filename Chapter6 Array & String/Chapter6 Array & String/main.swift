@@ -86,4 +86,39 @@ func palindrome(str: String) {
 palindrome(str: "toot")
 
 
+func reverseString(str: String) {
+  var charHash = [Character: Int]()
+  var characters = Array(str)
+  var empty = Array(" ")
+  
+  var changeStr = ""
+  var strArray = [String]()
+  
+  charHash[empty[0]] = 1
+  
+  for i in 0..<characters.count {
+    if charHash[characters[i]] == 1 {
+      print("ture")
+      strArray.append(changeStr)
+      changeStr = ""
+      
+    } else {
+      print("false")
+      changeStr.append(characters[i])
+    }
+  }
+  
+  strArray.append(changeStr)
+  changeStr = ""
+  
+  for i in 0..<strArray.count {
+    if i == 0 {
+      changeStr += strArray[strArray.count - 1 - i]
+    } else {
+      changeStr += " " + strArray[strArray.count - 1 - i]
+    }
+  }
+  
+  print("changeStr = \(changeStr)")
+}
 
