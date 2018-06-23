@@ -63,7 +63,11 @@ func removeChars(str: String, remove: String) -> String {
 
 print("removerChars = \(removeChars(str: "Battle of the Vowels: Hawaii vs Grozny", remove: "aeiou"))")
 
-// 회문 인지 확인하는 것.
+/*
+ 회문인지 확인하는 알고리즘
+ */
+
+// 더 간단하게 만들수도 있을것 같음.
 func palindrome(str: String) {
   var originArray = Array(str)
   var reverseArray = [Character]()
@@ -80,12 +84,17 @@ func palindrome(str: String) {
     print("No palindrome")
   }
   
+  // O(n)
   print("palindrome = \(reverseString)")
 }
 
 palindrome(str: "toot")
 
+/*
+ 단어를 기준으로 순서를 바꾸는 알고리즘
+ */
 
+// 공간을 조금더 줄일수도 있을거 같음, 스위프트 방식으로 하면 더 간단해 질수 ( split 함수등 )
 func reverseString(str: String) {
   var charHash = [Character: Int]()
   var characters = Array(str)
@@ -119,6 +128,58 @@ func reverseString(str: String) {
     }
   }
   
+  // for 2번 = 2n -> O(n)
+  
   print("changeStr = \(changeStr)")
 }
+
+/*
+ 두개의 문장을 비교해서 1개만 수정해면 같아질수 있는지 찾는 프로그램
+ */
+// 맞았지만 조금더 수정 필요
+func oneModifyEqual(str1: String, str2: String) -> Bool {
+  var strArray1 = Array(str1)
+  var strArray2 = Array(str2)
+  var strHash = [Character: Int]()
+  var isOneModify = true
+  var result = 0
+  
+  let strCount = str1.count - str2.count
+  
+  if abs(strCount) > 2 {
+    return false
+  }
+  
+  for i in 0..<strArray1.count {
+    if strHash[strArray1[i]] == nil {
+      strHash[strArray1[i]] = 1
+    } else {
+      strHash[strArray1[i]] = strHash[strArray1[i]]! + 1
+    }
+  }
+  
+  for i in 0..<strArray2.count {
+    if strHash[strArray2[i]] != nil {
+      strHash[strArray2[i]] = strHash[strArray2[i]]! - 1
+    }
+  }
+
+  for i in 0..<strArray1.count {
+    result = result + strHash[strArray1[i]]!
+  }
+  
+  if result > 1 {
+    isOneModify = false
+  }
+  
+  // 3n, O(n)
+  
+  return isOneModify
+}
+
+print(oneModifyEqual(str1: "pale", str2: "ple"))
+print(oneModifyEqual(str1: "pales", str2: "pale"))
+print(oneModifyEqual(str1: "pale", str2: "bale"))
+print(oneModifyEqual(str1: "pale", str2: "bake"))
+print(oneModifyEqual(str1: "paless", str2: "pale"))
 
