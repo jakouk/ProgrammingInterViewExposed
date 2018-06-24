@@ -183,3 +183,48 @@ print(oneModifyEqual(str1: "pale", str2: "bale"))
 print(oneModifyEqual(str1: "pale", str2: "bake"))
 print(oneModifyEqual(str1: "paless", str2: "pale"))
 
+
+/*
+  들어오는 문장을 압축하여서 표현하는 함수
+ aaabbcddd -> a3b2c1d3 이런방식으로 바꾸는 함수
+ */
+
+func stringCompression(str: String) -> String {
+  var chars = Array(str)
+  var compressionString = ""
+  var cnt = 1
+  
+  if chars.count < 2 {
+    return str
+  }
+  
+  for i in 0..<chars.count - 1 {
+    let char1 = chars[i]
+    let char2 = chars[i+1]
+    
+    if char1 == char2 {
+      cnt += 1
+    } else {
+      compressionString.append(char1)
+      compressionString += "\(cnt)"
+      cnt = 1
+    }
+    
+    if i == chars.count - 2 {
+      compressionString.append(char2)
+      compressionString += "\(cnt)"
+    }
+  }
+  
+  // n -> O(n)
+  
+  if str.count < compressionString.count {
+    return str
+  } else {
+    return compressionString
+  }
+}
+
+print(stringCompression(str: "aa"))
+print(stringCompression(str: "aaaabbcccdd"))
+print(stringCompression(str: "aaabbbacccddd"))
