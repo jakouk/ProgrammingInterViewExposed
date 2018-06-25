@@ -228,3 +228,50 @@ func stringCompression(str: String) -> String {
 print(stringCompression(str: "aa"))
 print(stringCompression(str: "aaaabbcccdd"))
 print(stringCompression(str: "aaabbbacccddd"))
+
+/*
+  두 문자열이 순열관계인지 판단
+ */
+
+func permutation(str1: String, str2: String) -> Bool {
+  var isPermutation = false
+  var str1Array = Array(str1)
+  var str2Array = Array(str2)
+  var charsHash = [Character: Int]()
+  var result = 0
+  
+  for i in 0..<str1.count {
+    if charsHash[str1Array[i]] == nil {
+      charsHash[str1Array[i]] = 1
+    } else {
+      charsHash[str1Array[i]] = charsHash[str1Array[i]]! +  1
+    }
+  }
+  
+  for i in 0..<str2.count {
+    if charsHash[str2Array[i]] == nil {
+      charsHash[str2Array[i]] = 1
+    } else {
+      charsHash[str2Array[i]] = charsHash[str2Array[i]]! -  1
+    }
+  }
+  
+  for i in 0..<str1Array.count {
+    result = result + charsHash[str1Array[i]]!
+  }
+  
+  if result == 0 {
+    isPermutation = true
+  }
+  
+  return isPermutation
+}
+
+print(permutation(str1: "abcd", str2: "bcda"))
+print(permutation(str1: "abcdaaaa", str2: "aaaabcd"))
+print(permutation(str1: "abcdbbb", str2: "bbbbcda"))
+print(permutation(str1: "abcdccc", str2: "cccbcda"))
+print(permutation(str1: "abcdddd", str2: "dddbcda"))
+
+
+
