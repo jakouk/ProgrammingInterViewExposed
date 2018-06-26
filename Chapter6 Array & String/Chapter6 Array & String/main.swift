@@ -274,4 +274,39 @@ print(permutation(str1: "abcdccc", str2: "cccbcda"))
 print(permutation(str1: "abcdddd", str2: "dddbcda"))
 
 
+/*
+  리펙토링 ( 바로위 함수 두 순열의 관계 확인 )
+*/
+
+func permutation1(str1: String, str2: String) -> Bool {
+  var isPermutation = false
+  var chars1Hash = [Character: Int]()
+  var chars2Hash = [Character: Int]()
+  
+  if str1.characters.count != str2.characters.count {
+    return isPermutation
+  }
+  
+  for character in str1.characters {
+    if let count = chars1Hash[character] {
+      chars1Hash[character] = count + 1
+    } else {
+      chars1Hash[character] = 1
+    }
+  }
+  
+  for character in str2.characters {
+    if let count = chars2Hash[character] {
+      chars2Hash[character] = count + 1
+    } else {
+      chars2Hash[character] = 1
+    }
+  }
+
+  if chars1Hash == chars2Hash {
+    isPermutation = true
+  }
+  
+  return isPermutation
+}
 
