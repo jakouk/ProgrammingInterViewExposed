@@ -310,3 +310,23 @@ func permutation1(str1: String, str2: String) -> Bool {
   return isPermutation
 }
 
+/*
+  공백은 %20으로 변환하는 메서드 
+ */
+
+func blankChangeCharacter(str: String) -> String {
+  let str1 = Array("%20")
+  var chars = Array(str)
+  
+  for i in 0..<chars.count {
+    if chars[i] == Character(" ") {
+      chars.remove(at: i)
+      chars.insert(contentsOf: str1, at: i)
+    }
+  }
+  
+  return String(chars)
+}
+
+print(blankChangeCharacter(str: "How are you doing?"))
+
