@@ -330,3 +330,26 @@ func blankChangeCharacter(str: String) -> String {
 
 print(blankChangeCharacter(str: "How are you doing?"))
 
+/*
+  행렬 90도 회전하기
+ 정답을 보고서 했다. for 하나로 해야한다고 생각했는데 for 2개로 해야 가능했다.
+ O(n^2)
+ */
+func matrixRotation(matrix: [[Int]]) -> [[Int]] {
+  var newMatrix = matrix
+  for i in 0..<matrix.count / 2 {
+    let first = i
+    let last = matrix.count - 1 - i
+    for j in i..<last {
+      let offset = j - first
+      let top = newMatrix[first][j]
+      newMatrix[first][j] = newMatrix[last-offset][first]
+      newMatrix[last-offset][first] = newMatrix[last][last-offset]
+      newMatrix[last][last-offset] = newMatrix[j][last]
+      newMatrix[j][last] = top
+    }
+  }
+  return newMatrix
+}
+
+print(matrixRotation(matrix: [[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]]))
