@@ -353,3 +353,35 @@ func matrixRotation(matrix: [[Int]]) -> [[Int]] {
 }
 
 print(matrixRotation(matrix: [[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]]))
+
+/*
+ 0이 하나라도 있으면 0행렬로 만들기
+ 내가 만든것은 2n^2 -> O(n^2)
+ */
+
+func zeroMatrix(matrix: [[Int]]) -> [[Int]] {
+  var newMatrix = matrix
+  var isExistZero = false
+  
+  for i in 0..<newMatrix.count {
+    for j in 0..<newMatrix.count {
+      if 0 == newMatrix[i][j] {
+        isExistZero = true
+        break
+      }
+    }
+  }
+  
+  if !isExistZero {
+    return newMatrix
+  }
+  
+  for i in 0..<newMatrix.count {
+    for j in 0..<newMatrix.count {
+      newMatrix[i][j] = 0
+    }
+  }
+  return newMatrix
+}
+
+print(zeroMatrix(matrix: [[1,2,5,6],[8,3,1,0],[5,7,8,3],[4,2,6,4]] ))
