@@ -355,19 +355,28 @@ func matrixRotation(matrix: [[Int]]) -> [[Int]] {
 print(matrixRotation(matrix: [[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]]))
 
 /*
- 0이 하나라도 있으면 0행렬로 만들기
+ 어떤 행과 열에 0이 있으면 그 행과 열의 모든곳에 0을 넣는 알고리즘
  내가 만든것은 2n^2 -> O(n^2)
+ 더 줄일수 있는 방법은 조금더 고민해 봐야 할것 같다.
  */
 
 func zeroMatrix(matrix: [[Int]]) -> [[Int]] {
   var newMatrix = matrix
   var isExistZero = false
+  var row = [Bool]()
+  var column = [Bool]()
+  
+  for i in 0..<matrix.count {
+    row.append(false)
+    column.append(false)
+  }
   
   for i in 0..<newMatrix.count {
     for j in 0..<newMatrix.count {
       if 0 == newMatrix[i][j] {
+        row[i] = true
+        column[i] = true
         isExistZero = true
-        break
       }
     }
   }
@@ -378,7 +387,13 @@ func zeroMatrix(matrix: [[Int]]) -> [[Int]] {
   
   for i in 0..<newMatrix.count {
     for j in 0..<newMatrix.count {
-      newMatrix[i][j] = 0
+      if row[i] == true {
+        newMatrix[i][j] = 0
+      }
+      
+      if column[j] == true {
+        newMatrix[i][j] = 0
+      }
     }
   }
   return newMatrix
