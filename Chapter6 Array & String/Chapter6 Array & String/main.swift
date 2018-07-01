@@ -400,3 +400,21 @@ func zeroMatrix(matrix: [[Int]]) -> [[Int]] {
 }
 
 print(zeroMatrix(matrix: [[1,2,5,6],[8,3,1,0],[5,7,8,3],[4,2,6,4]] ))
+
+/*
+ 문자열회전
+ isSubstring 메서드를 한번만 불러서 확인하는 메서드
+ 직접 구현이라기 보다는 50%만 구현하는 문제였다. 
+ */
+
+func isRotation(str1: String, str2: String) -> Bool {
+  var isSubstring = false
+  var twoString = str1 + str1
+  
+  var twoStringArray = Array(twoString)
+  var secondStringArray = Array(str2)
+    if twoStringArray.count / 2 != secondStringArray.count ||  {
+      return isSubstring(twoString, str2)
+    }
+  return isSubstring
+}
