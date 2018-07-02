@@ -404,17 +404,39 @@ print(zeroMatrix(matrix: [[1,2,5,6],[8,3,1,0],[5,7,8,3],[4,2,6,4]] ))
 /*
  문자열회전
  isSubstring 메서드를 한번만 불러서 확인하는 메서드
- 직접 구현이라기 보다는 50%만 구현하는 문제였다. 
+ 직접 구현이라기 보다는 50%만 구현하는 문제였다.
+ 
+ 수정했다. 진짜 100% 회전한 문자열인지 알나애도록 만들었다.
+ 조금더 좋은 코드로 수정할수도 있을것 같다.
  */
 
 func isRotation(str1: String, str2: String) -> Bool {
   var isSubstring = false
-  var twoString = str1 + str1
+  let twoString = str1 + str1
+  let secondStringArray = Array(str2)
   
-  var twoStringArray = Array(twoString)
-  var secondStringArray = Array(str2)
-    if twoStringArray.count / 2 != secondStringArray.count ||  {
-      return isSubstring(twoString, str2)
+  if str1.count != str2.count || str1.count == 0 || str2.count == 0 {
+    return isSubstring
+  }
+  
+  for i in 0..<twoString.count - secondStringArray.count {
+    let substring = twoString.subString(startIndex: i, stringLenghth: secondStringArray.count + i)
+    if substring == str2 {
+      isSubstring = true
     }
+  }
+  
   return isSubstring
+}
+
+extension String {
+  func subString(startIndex: Int, stringLenghth: Int) -> String {
+    let strArray = Array(self)
+    var baseString = ""
+    
+    for i in startIndex..<stringLenghth {
+      baseString.append(strArray[i])
+    }
+    return baseString
+  }
 }
