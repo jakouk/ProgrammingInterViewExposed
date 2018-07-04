@@ -440,3 +440,149 @@ extension String {
     return baseString
   }
 }
+
+
+
+/*
+ 카카오 신입 공채 1차 코딩 테스트 6번 문제 ( 프렌즈 4 블록 )
+ 효율성 최악으로 일단 돌아가게만 만들었다.
+ 다음에는 리펙토링으로 다시 똑같은 문제를 푸는 코드 작성
+ */
+
+func friendsPuzzle(puzzle: [String]) -> Int {
+  var removeCount = 0
+  var newPuzzle = puzzle
+  var tempPuzzle = [String]()
+  
+  while true {
+    tempPuzzle = squareCheck(puzzle: newPuzzle)
+    
+    if tempPuzzle != newPuzzle {
+      newPuzzle = tempPuzzle
+    } else {
+      break
+    }
+  }
+  
+  for i in 0..<newPuzzle.count {
+    let chars = Array(newPuzzle[i])
+    let blank = Array(" ").first!
+    for char in chars {
+      if char == blank {
+        removeCount += 1
+      }
+    }
+  }
+  
+  print("newPuzzle = \(newPuzzle)")
+  
+  return removeCount
+}
+
+func squareCheck(puzzle:[String]) -> [String] {
+  
+  var newPuzzle = puzzle
+  var removeArray = [(Int,Int)]()
+  
+  for i in 0..<puzzle.count - 1 {
+    var oneLine = Array(puzzle[i])
+    var twoLine = Array(puzzle[i+1])
+    
+    for j in 0..<oneLine.count - 1 {
+      
+      if oneLine[j] == oneLine[j+1] {
+        if oneLine[j] == twoLine[j] {
+          if oneLine[j] == twoLine[j+1] {
+            let removers: (Int, Int) = (i,j)
+            removeArray.append(removers)
+          }
+        }
+      }
+    }
+  }
+  
+  print("removeArray = \(removeArray)")
+  
+  newPuzzle = removePuzzle(remover: removeArray, puzzle: puzzle)
+  
+  return newPuzzle
+}
+
+func removePuzzle(remover:[(Int,Int)], puzzle: [String]) -> [String] {
+  var newPuzzle = puzzle
+  
+  for i in 0..<puzzle.count - 1 {
+    var oneLine = Array(newPuzzle[i])
+    var twoLine = Array(newPuzzle[i+1])
+    for j in 0..<oneLine.count - 1 {
+      for k in 0..<remover.count {
+        if i == remover[k].0 {
+          if j == remover[k].1 {
+            let blank = Array(" ").first!
+            
+            print("i = \(i)")
+            print("j = \(j)")
+            print("oneLine = \(oneLine)")
+            print("twoLine = \(twoLine)")
+            
+            oneLine[j] = blank
+            oneLine[j+1] = blank
+            twoLine[j] = blank
+            twoLine[j+1] = blank
+            
+            print("oneLine = \(oneLine)")
+            print("twoLine = \(twoLine)")
+            
+            newPuzzle.remove(at: i+1)
+            newPuzzle.remove(at: i)
+            newPuzzle.insert(String(oneLine), at: i)
+            newPuzzle.insert(String(twoLine), at: i+1)
+          }
+        }
+      }
+    }
+  }
+  
+  print(newPuzzle)
+  
+  newPuzzle = downString(puzzle: newPuzzle)
+  
+  return newPuzzle
+}
+
+func downString(puzzle: [String]) -> [String] {
+  var newPuzzle = puzzle
+  let lineCount = puzzle[0].count
+  
+  for j in 0..<lineCount {
+    
+    var k = 0
+    while k < lineCount {
+      
+      for i in 0..<puzzle.count-1 {
+        var oneLine = Array(newPuzzle[i])
+        var twoLine = Array(newPuzzle[i+1])
+        let blank = Array(" ").first!
+        if twoLine[j] == blank {
+          if oneLine[j] != blank {
+            twoLine[j] = oneLine[j]
+            oneLine[j] = blank
+            
+            newPuzzle.remove(at: i+1)
+            newPuzzle.remove(at: i)
+            newPuzzle.insert(String(oneLine), at: i)
+            newPuzzle.insert(String(twoLine), at: i+1)
+          }
+        }
+      }
+      k += 1
+    }
+  }
+  
+  print("downString = \(newPuzzle)")
+  
+  return newPuzzle
+}
+
+print("removerPuzzle Count =  \(friendsPuzzle(puzzle: ["TTTANT","RRFACC","RRRFCC","TRRRAA","TTMMMF","TMMTTJ"]))")
+print("removerPuzzle Count =  \(friendsPuzzle(puzzle: ["CCBDE","AAADE","AAABF","CCBBF"]))")
