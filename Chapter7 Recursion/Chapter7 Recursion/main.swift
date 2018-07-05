@@ -15,43 +15,67 @@ import Foundation
  일단 자바방식으로 만들었는데 실행이 안되서 좀더 살펴봐야할것 같다. 
  */
 
-class Permutation {
-  var used = [Bool?]()
-  var out = ""
-  final var finalIn = ""
+// class Permutation {
+//   var used = [Bool?]()
+//   var out = ""
+//   final var finalIn = ""
   
-  func permutation(str: String) {
-    finalIn = str
-    for _ in 0..<finalIn.count {
-      used.append(nil)
-    }
+//   func permutation(str: String) {
+//     finalIn = str
+//     for _ in 0..<finalIn.count {
+//       used.append(nil)
+//     }
+//   }
+  
+//   func permute() {
+//     if out.count == finalIn.count {
+//       print(out)
+//       return
+//     }
+    
+//     for i in 0..<finalIn.count {
+//       if used[i] == nil {
+//         out.append(Array(finalIn)[i])
+//         used[i] = true
+//         permute()
+//         used[i] = false
+//         out.removeLast()
+//       }
+//     }
+//     print(out)
+//   }
+// }
+
+// let permutation = Permutation()
+// permutation.permutation(str: "hta")
+// print(permutation.permute())
+
+
+var str = "hta"
+
+func printPermutation(str: String) {
+  permutation(string: str, k: 0)
+}
+
+func permutation(string: String, k: Int ) {
+  if k == string.count {
+    print(string)
+    return
   }
   
-  func permute() {
-    if out.count == finalIn.count {
-      print(out)
-      return
-    }
-    
-    for i in 0..<finalIn.count {
-      if used[i] == nil {
-        out.append(Array(finalIn)[i])
-        used[i] = true
-        permute()
-        used[i] = false
-        out.removeLast()
-      }
-    }
-    print(out)
+  for j in k..<string.count {
+    let str = swapString(string: string, idx: j, k: k)
+    permutation(string: str, k: k+1)
   }
 }
 
-let permutation = Permutation()
-permutation.permutation(str: "hta")
-print(permutation.permute())
+func swapString(string: String, idx: Int, k: Int) -> String {
+  var chars = Array(string)
+  chars.swapAt(idx, k)
+  return String(chars)
+}
 
-
-
+print(printPermutation(str: "hta"))
 
 
 
