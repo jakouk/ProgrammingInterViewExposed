@@ -50,9 +50,6 @@ import Foundation
 // permutation.permutation(str: "hta")
 // print(permutation.permute())
 
-
-var str = "hta"
-
 func printPermutation(str: String) {
   permutation(string: str, k: 0)
 }
@@ -77,6 +74,32 @@ func swapString(string: String, idx: Int, k: Int) -> String {
 
 print(printPermutation(str: "hta"))
 
+/*
+ 모든 겹치지 않는 문자열조합 재귀 알고리즘 
+ */
 
+func permute<C: Collection>(items: C) -> [[C.Iterator.Element]] {
+  var scratch = Array(items)
+  var result: [[C.Iterator.Element]] = []
+  
+  func heap(_ n: Int) {
+    if n == 1 {
+      result.append(scratch)
+      return
+    }
+    for i in 0..<n-1 {
+      heap(n-1)
+      let j = (n%2 == 1) ? 0 : i
+      scratch.swapAt(j, n-1)
+    }
+    heap(n-1)
+  }
+  heap(scratch.count)
+  
+  return result
+}
 
-
+let string = "ABCD"
+let perms = permute(items: string.characters)
+let permStrings = perms.map() { String($0) }
+print(permStrings)
